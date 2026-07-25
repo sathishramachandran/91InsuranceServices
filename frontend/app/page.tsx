@@ -11,13 +11,13 @@ export default function Home() {
       <header className="sticky top-0 z-40 border-b border-[#F4D06F]/25 bg-[#0057D9]/95 text-white shadow-2xl shadow-slate-950/10 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-4 sm:px-8">
           <a href="#home" className="flex items-center gap-3">
-            <span className="grid h-12 w-12 place-items-center overflow-hidden rounded-xl border border-[#F4D06F]/35 bg-white/10 shadow-lg shadow-blue-950/30">
+            <span className="">
               <Image
                 src="/images/logo/new_logo.png"
                 alt="91 Insurance Services logo"
-                width={48}
-                height={48}
-                className="h-12 w-12 object-cover"
+                width={100}
+                height={100}
+                
                 priority
               />
             </span>
@@ -35,9 +35,7 @@ export default function Home() {
           </nav>
 
           <div className="flex items-center gap-2">
-            <Link href="/login" className="hidden rounded-lg border border-[#F4D06F]/30 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/10 sm:inline-flex">
-              Login
-            </Link>
+           
             <a href={`https://wa.me/${whatsappNumber}`} target="_blank" rel="noreferrer" className="rounded-lg bg-[#D4AF37] px-4 py-2 text-sm font-bold text-slate-950 shadow-lg shadow-emerald-950/20 transition hover:bg-[#F4D06F]">
               WhatsApp
             </a>
@@ -77,7 +75,7 @@ export default function Home() {
             </div>
 
             <div className="mt-10 grid gap-3 sm:grid-cols-3">
-              {['Same-day WhatsApp response', 'Chidambaram local office', 'Insurance + finance + travel'].map((item) => (
+              {['Same-day WhatsApp response', 'India local ', 'Insurance + finance'].map((item) => (
                 <div key={item} className="rounded-lg border border-[#F4D06F]/20 bg-white/10 px-4 py-3 text-sm font-semibold text-white/90">
                   {item}
                 </div>
@@ -122,8 +120,8 @@ export default function Home() {
         </div>
         <div className="grid gap-5 lg:grid-cols-3">
           {[
-            ['Vehicle Insurance', 'Bike, car, and commercial policy renewal support with quote follow-up.', 'from-[#0057D9] to-[#1D7CFF]'],
-            ['Vehicle Finance', 'New vehicle loans, used car finance, refinance, and top-up loan enquiries.', 'from-[#0057D9] to-[#1D7CFF]'],
+            ['All Types of Vehicle Insurance', 'Comprehensive insurance solutions for bikes, cars, taxis, auto-rickshaws, trucks, buses, tractors, and all commercial vehicles.', 'from-[#0057D9] to-[#1D7CFF]'],
+            ['Vehicle Finance', 'New vehicle loans, used vehicle finance, refinance, balance transfer, and top-up loan assistance.', 'from-[#0057D9] to-[#1D7CFF]'],
           ].map(([title, text, gradient]) => (
             <article key={title} className="overflow-hidden rounded-2xl border border-[#F4D06F]/20 bg-white/10 shadow-xl shadow-slate-950/20 backdrop-blur">
               <div className={`h-2 bg-gradient-to-r ${gradient}`} />
@@ -157,8 +155,8 @@ export default function Home() {
               <p className="mt-3 text-sm leading-6 text-white/75">WhatsApp: +91 99424 85508</p>
               <div className="mt-4 flex flex-wrap gap-4 text-sm font-semibold">
                 <a href={`https://wa.me/${whatsappNumber}`} target="_blank" rel="noreferrer" className="text-[#F4D06F] hover:text-[#D4AF37]">WhatsApp</a>
-                <a href="#" className="text-white/70 hover:text-white">Facebook</a>
-                <a href="#" className="text-white/70 hover:text-white">Instagram</a>
+                <a href="https://www.facebook.com/share/1btqwK92yH/"  target="_blank" rel="noreferrer" className="text-white/70 hover:text-white">Facebook</a>
+                <a href="https://www.instagram.com/91insurance_services?igsh=MXUyaXgxenJzM3k1MA=="  target="_blank" rel="noreferrer"  className="text-white/70 hover:text-white">Instagram</a>
               </div>
             </div>
           </div>

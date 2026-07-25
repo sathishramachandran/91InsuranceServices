@@ -47,7 +47,7 @@ export default function QuoteRequestPage() {
             Submit your renewal request without login.
           </h1>
           <p className="mt-4 max-w-md text-sm leading-7 text-white/80 sm:text-base">
-            Share your details and we&apos;ll send the renewal request directly to WhatsApp. No vehicle ID, no login, just a quick enquiry.
+            Share your vehicle details, and we'll send your enquiry directly to WhatsApp. No registration, no login, and no complicated steps-just a quick and easy way to request your insurance renewal.
           </p>
 
           <div className="mt-8 grid gap-3 sm:mt-10 sm:grid-cols-3">
