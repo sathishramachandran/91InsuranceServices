@@ -143,7 +143,7 @@ export default function Home() {
         <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
           <div className="grid gap-8 sm:grid-cols-3">
             <div className="sm:pr-4">
-              <h2 className="text-xl font-black text-white">91 Insurance Services</h2>
+              <h2 className="text-xl font-black uppercase tracking-[0.18em] text-[#F4D06F]">91 Insurance Services</h2>
               <p className="mt-3 text-sm leading-6 text-white/75">Vehicle insurance, finance, enquiries handled through WhatsApp follow-up.</p>
             </div>
             <div>
@@ -152,7 +152,7 @@ export default function Home() {
             </div>
             <div>
               <h3 className="text-sm font-black uppercase tracking-[0.18em] text-[#F4D06F]">Contact</h3>
-              <p className="mt-3 text-sm leading-6 text-white/75">WhatsApp: +91 99424 85508</p>
+              <p className="mt-3 text-sm leading-6 text-white/75">WhatsApp: +91 9500008454</p>
               <div className="mt-4 flex flex-wrap gap-4 text-sm font-semibold">
                 <a href={`https://wa.me/${whatsappNumber}`} target="_blank" rel="noreferrer" className="text-[#F4D06F] hover:text-[#D4AF37]">WhatsApp</a>
                 <a href="https://www.facebook.com/share/1btqwK92yH/"  target="_blank" rel="noreferrer" className="text-white/70 hover:text-white">Facebook</a>
