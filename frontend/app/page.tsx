@@ -13,7 +13,7 @@ export default function Home() {
           <a href="#home" className="flex items-center gap-3">
             <span className="grid h-12 w-12 place-items-center overflow-hidden rounded-xl border border-[#F4D06F]/35 bg-white/10 shadow-lg shadow-blue-950/30">
               <Image
-                src="/images/logo/91-shield.jpeg"
+                src="/images/logo/new_logo.png"
                 alt="91 Insurance Services logo"
                 width={48}
                 height={48}
