@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import { api } from '../../../lib/api';
 
 const documentTypes = [
   { value: 'rc', label: 'Vehicle RC' },
@@ -53,7 +54,7 @@ export default function UploadDocumentPage() {
     setIsLoading(true);
 
     try {
-      await axios.post('http://localhost:8000/documents', formData, {
+      await api.post('/documents', formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',

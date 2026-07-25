@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useRouter } from 'next/navigation';
+import { api } from '../../../lib/api';
 
 const vehicleSchema = z.object({
   vehicle_number: z.string().min(2, 'Vehicle number is required'),
@@ -60,7 +61,7 @@ export default function AddVehiclePage() {
     }
 
     try {
-      await axios.post('http://localhost:8000/vehicles', values, {
+      await api.post('/vehicles', values, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/backend/(.*)",
+      "destination": "https://YOUR-BACKEND-DEPLOYMENT-URL/$1"
+    }
+  ]
+}
