@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from 'react';
 import Link from 'next/link';
+import { Select } from '@/components/ui/select';
 
 const whatsappNumber = '919500008454';
 
@@ -96,28 +97,15 @@ export default function QuoteRequestPage() {
               />
             </label>
 
-            <label className="relative block">
+            <label className="block">
               <span className="mb-2 block text-sm font-medium text-slate-700">Policy type</span>
-              <select
+              <Select
                 name="policy_type"
                 defaultValue="Renewal"
-                className="h-14 w-full appearance-none rounded-2xl border border-[#F4D06F]/30 bg-white px-4 pr-12 text-slate-900 outline-none transition focus:border-[#D4AF37] focus:ring-4 focus:ring-[#F4D06F]/20"
               >
-                <option>Renewal</option>
-                <option>New Policy</option>
-              </select>
-              <svg
-                aria-hidden="true"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="pointer-events-none absolute right-4 top-[3.15rem] h-4 w-4 text-[#D4AF37]"
-              >
-                <path d="m6 9 6 6 6-6" />
-              </svg>
+                <option value="Renewal">Renewal</option>
+                <option value="New Policy">New Policy</option>
+              </Select>
             </label>
 
             <label className="block">
