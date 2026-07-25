@@ -29,9 +29,6 @@ export default function QuoteRequestPage() {
       `Phone: ${getFormValue(form, 'phone')}`,
       `Policy Type: ${getFormValue(form, 'policy_type')}`,
       `Vehicle No: ${getFormValue(form, 'vehicle_no')}`,
-      `Previous Insurance Company: ${getFormValue(form, 'previous_insurance_company')}`,
-      `Expiry Date: ${getFormValue(form, 'expiry_date')}`,
-      `Remarks: ${getFormValue(form, 'remarks')}`,
     ].join('\n'));
 
     setIsLoading(false);
@@ -134,35 +131,6 @@ export default function QuoteRequestPage() {
                 }}
                 className="h-14 w-full rounded-2xl border border-[#F4D06F]/30 bg-white px-4 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-[#D4AF37] focus:ring-4 focus:ring-[#F4D06F]/20"
                 placeholder="TN-11-XX-XXXX"
-              />
-            </label>
-
-            <label className="block">
-              <span className="mb-2 block text-sm font-medium text-slate-700">Previous Insurance Company</span>
-              <input
-                type="text"
-                name="previous_insurance_company"
-                className="h-14 w-full rounded-2xl border border-[#F4D06F]/30 bg-white px-4 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-[#D4AF37] focus:ring-4 focus:ring-[#F4D06F]/20"
-                placeholder="Example Insurance"
-              />
-            </label>
-
-            <label className="block">
-              <span className="mb-2 block text-sm font-medium text-slate-700">Expiry Date</span>
-              <input
-                type="date"
-                name="expiry_date"
-                className="h-14 w-full rounded-2xl border border-[#F4D06F]/30 bg-white px-4 text-slate-900 outline-none transition focus:border-[#D4AF37] focus:ring-4 focus:ring-[#F4D06F]/20"
-              />
-            </label>
-
-            <label className="block">
-              <span className="mb-2 block text-sm font-medium text-slate-700">Remarks</span>
-              <textarea
-                name="remarks"
-                rows={4}
-                className="w-full rounded-2xl border border-[#F4D06F]/30 bg-white px-4 py-3 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-[#D4AF37] focus:ring-4 focus:ring-[#F4D06F]/20"
-                placeholder="Add any extra details"
               />
             </label>
 
