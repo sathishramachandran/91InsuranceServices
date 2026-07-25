@@ -10,6 +10,7 @@ import { api, getAuthHeaders } from '../../../lib/api';
 
 const quoteSchema = z.object({
   vehicle_id: z.string().min(1, 'Vehicle ID is required').regex(/^[0-9]+$/, 'Enter a valid vehicle ID'),
+  name: z.string().min(1, 'Name is required'),
   claim: z.boolean(),
   name_transfer: z.boolean(),
   ncb: z.string().max(50).optional().or(z.literal('')),
@@ -35,6 +36,7 @@ function QuoteRequestForm() {
     resolver: zodResolver(quoteSchema),
     defaultValues: {
       vehicle_id: '',
+      name: '',
       claim: false,
       name_transfer: false,
       ncb: '',
@@ -151,11 +153,11 @@ function QuoteRequestForm() {
               <span className="mb-2 block text-sm font-medium text-slate-700">Name</span>
               <input
                 type="text"
-                {...register('vehicle_id')}
+                {...register('name')}
                 className="h-14 w-full rounded-2xl border border-[#F4D06F]/30 bg-white px-4 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-[#D4AF37] focus:ring-4 focus:ring-[#F4D06F]/20"
                 placeholder="John"
               />
-              {errors.vehicle_id && <p className="mt-2 text-sm text-red-600">{errors.vehicle_id.message}</p>}
+              {errors.name && <p className="mt-2 text-sm text-red-600">{errors.name.message}</p>}
             </label>
 
             <label className="block">
@@ -180,6 +182,8 @@ function QuoteRequestForm() {
                 placeholder="TN-11-XX-XXXX"
               />
             </label>
+
+            <input type="hidden" {...register('vehicle_id')} />
 
             {statusMessage ? (
               <div className="rounded-3xl border border-[#F4D06F]/20 bg-[#F4D06F]/10 px-4 py-4 text-sm text-slate-900">
