@@ -1,88 +1,40 @@
 'use client';
 
-import { Suspense, useEffect, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { api, getAuthHeaders } from '../../../lib/api';
 
-const quoteSchema = z.object({
-  vehicle_id: z.string().min(1, 'Vehicle ID is required').regex(/^[0-9]+$/, 'Enter a valid vehicle ID'),
-  name: z.string().min(1, 'Name is required'),
-  claim: z.boolean(),
-  name_transfer: z.boolean(),
-  ncb: z.string().max(50).optional().or(z.literal('')),
-  previous_insurance_company: z.string().max(100).optional().or(z.literal('')),
-  expiry_date: z.string().optional().or(z.literal('')),
-  remarks: z.string().max(500).optional().or(z.literal('')),
-});
+const whatsappNumber = '919500008454';
 
-type QuoteFormValues = z.infer<typeof quoteSchema>;
+function openWhatsApp(message: string) {
+  const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+  window.open(url, '_blank', 'noopener,noreferrer');
+}
 
-function QuoteRequestForm() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const [statusMessage, setStatusMessage] = useState<string | null>(null);
+function getFormValue(form: HTMLFormElement, name: string) {
+  const value = new FormData(form).get(name);
+  return typeof value === 'string' ? value.trim() : '';
+}
+
+export default function QuoteRequestPage() {
   const [isLoading, setIsLoading] = useState(false);
 
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    formState: { errors },
-  } = useForm<QuoteFormValues>({
-    resolver: zodResolver(quoteSchema),
-    defaultValues: {
-      vehicle_id: '',
-      name: '',
-      claim: false,
-      name_transfer: false,
-      ncb: '',
-      previous_insurance_company: '',
-      expiry_date: '',
-      remarks: '',
-    },
-  });
-
-  useEffect(() => {
-    const vehicleId = searchParams?.get('vehicle_id');
-    if (vehicleId) setValue('vehicle_id', vehicleId);
-  }, [searchParams, setValue]);
-
-  const onSubmit = async (values: QuoteFormValues) => {
-    setStatusMessage(null);
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     setIsLoading(true);
 
-    const token = window.localStorage.getItem('insurance_token');
-    if (!token) {
-      setStatusMessage('Please login to submit a quote request.');
-      router.push('/login');
-      return;
-    }
+    const form = event.currentTarget;
+    openWhatsApp([
+      'Hello 91 Insurance Services, I want to submit a renewal request:',
+      `Name: ${getFormValue(form, 'name')}`,
+      `Phone: ${getFormValue(form, 'phone')}`,
+      `Policy Type: ${getFormValue(form, 'policy_type')}`,
+      `Vehicle No: ${getFormValue(form, 'vehicle_no')}`,
+      `Previous Insurance Company: ${getFormValue(form, 'previous_insurance_company')}`,
+      `Expiry Date: ${getFormValue(form, 'expiry_date')}`,
+      `Remarks: ${getFormValue(form, 'remarks')}`,
+    ].join('\n'));
 
-    try {
-      await api.post(
-        '/quotes',
-        {
-          vehicle_id: Number(values.vehicle_id),
-          claim: values.claim,
-          name_transfer: values.name_transfer,
-          ncb: values.ncb || null,
-          previous_insurance_company: values.previous_insurance_company || null,
-          expiry_date: values.expiry_date || null,
-          remarks: values.remarks || null,
-        },
-        { headers: getAuthHeaders() }
-      );
-      setStatusMessage('Your quote request has been submitted successfully.');
-      router.push('/dashboard');
-    } catch (error: unknown) {
-      setStatusMessage(error instanceof Error ? error.message : 'Unable to submit quote request. Please try again.');
-    } finally {
-      setIsLoading(false);
-    }
+    setIsLoading(false);
   };
 
   return (
@@ -95,17 +47,17 @@ function QuoteRequestForm() {
             Quote request
           </div>
           <h1 className="mt-5 max-w-md text-3xl font-semibold leading-tight sm:text-5xl">
-            Request a renewal quote in one clean step.
+            Submit your renewal request without login.
           </h1>
           <p className="mt-4 max-w-md text-sm leading-7 text-white/80 sm:text-base">
-            Share the policy type, contact details, and vehicle number. We&apos;ll route the request to the right team and keep the next step simple.
+            Share your details and we&apos;ll send the renewal request directly to WhatsApp. No vehicle ID, no login, just a quick enquiry.
           </p>
 
           <div className="mt-8 grid gap-3 sm:mt-10 sm:grid-cols-3">
             {[
-              ['Fast', 'Send your request in under a minute.'],
-              ['Clear', 'A focused form with only the essentials.'],
-              ['Secure', 'Your details stay tied to your account.'],
+              ['Fast', 'Submit in under a minute.'],
+              ['Direct', 'Message goes straight to WhatsApp.'],
+              ['Simple', 'Only the fields you actually need.'],
             ].map(([title, copy]) => (
               <div key={title} className="rounded-3xl border border-[#F4D06F]/15 bg-white/10 p-4 backdrop-blur-sm">
                 <div className="text-sm font-semibold text-white">{title}</div>
@@ -124,16 +76,38 @@ function QuoteRequestForm() {
             </p>
           </div>
 
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 sm:space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
+            <label className="block">
+              <span className="mb-2 block text-sm font-medium text-slate-700">Name</span>
+              <input
+                type="text"
+                name="name"
+                required
+                className="h-14 w-full rounded-2xl border border-[#F4D06F]/30 bg-white px-4 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-[#D4AF37] focus:ring-4 focus:ring-[#F4D06F]/20"
+                placeholder="John"
+              />
+            </label>
+
+            <label className="block">
+              <span className="mb-2 block text-sm font-medium text-slate-700">Phone Number</span>
+              <input
+                type="tel"
+                name="phone"
+                required
+                className="h-14 w-full rounded-2xl border border-[#F4D06F]/30 bg-white px-4 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-[#D4AF37] focus:ring-4 focus:ring-[#F4D06F]/20"
+                placeholder="9876543210"
+              />
+            </label>
+
             <label className="relative block">
               <span className="mb-2 block text-sm font-medium text-slate-700">Policy type</span>
               <select
-                {...register('claim', { setValueAs: (value) => value === 'true' })}
+                name="policy_type"
+                defaultValue="Renewal"
                 className="h-14 w-full appearance-none rounded-2xl border border-[#F4D06F]/30 bg-white px-4 pr-12 text-slate-900 outline-none transition focus:border-[#D4AF37] focus:ring-4 focus:ring-[#F4D06F]/20"
-                defaultValue="false"
               >
-                <option value="false">Renewal</option>
-                <option value="true">New Policy</option>
+                <option>Renewal</option>
+                <option>New Policy</option>
               </select>
               <svg
                 aria-hidden="true"
@@ -150,44 +124,11 @@ function QuoteRequestForm() {
             </label>
 
             <label className="block">
-              <span className="mb-2 block text-sm font-medium text-slate-700">Vehicle ID</span>
-              <input
-                type="text"
-                {...register('vehicle_id')}
-                inputMode="numeric"
-                className="h-14 w-full rounded-2xl border border-[#F4D06F]/30 bg-white px-4 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-[#D4AF37] focus:ring-4 focus:ring-[#F4D06F]/20"
-                placeholder="123"
-              />
-              <p className="mt-2 text-xs text-slate-500">Enter the vehicle ID from your dashboard or vehicle record.</p>
-              {errors.vehicle_id && <p className="mt-2 text-sm text-red-600">{errors.vehicle_id.message}</p>}
-            </label>
-
-            <label className="block">
-              <span className="mb-2 block text-sm font-medium text-slate-700">Name</span>
-              <input
-                type="text"
-                {...register('name')}
-                className="h-14 w-full rounded-2xl border border-[#F4D06F]/30 bg-white px-4 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-[#D4AF37] focus:ring-4 focus:ring-[#F4D06F]/20"
-                placeholder="John"
-              />
-              {errors.name && <p className="mt-2 text-sm text-red-600">{errors.name.message}</p>}
-            </label>
-
-            <label className="block">
-              <span className="mb-2 block text-sm font-medium text-slate-700">Phone Number</span>
-              <input
-                type="text"
-                {...register('previous_insurance_company')}
-                className="h-14 w-full rounded-2xl border border-[#F4D06F]/30 bg-white px-4 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-[#D4AF37] focus:ring-4 focus:ring-[#F4D06F]/20"
-                placeholder="9876543210"
-              />
-            </label>
-
-            <label className="block">
               <span className="mb-2 block text-sm font-medium text-slate-700">Vehicle No</span>
               <input
                 type="text"
-                {...register('remarks')}
+                name="vehicle_no"
+                required
                 onChange={(event) => {
                   event.currentTarget.value = event.currentTarget.value.toUpperCase();
                 }}
@@ -196,11 +137,34 @@ function QuoteRequestForm() {
               />
             </label>
 
-            {statusMessage ? (
-              <div className="rounded-3xl border border-[#F4D06F]/20 bg-[#F4D06F]/10 px-4 py-4 text-sm text-slate-900">
-                {statusMessage}
-              </div>
-            ) : null}
+            <label className="block">
+              <span className="mb-2 block text-sm font-medium text-slate-700">Previous Insurance Company</span>
+              <input
+                type="text"
+                name="previous_insurance_company"
+                className="h-14 w-full rounded-2xl border border-[#F4D06F]/30 bg-white px-4 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-[#D4AF37] focus:ring-4 focus:ring-[#F4D06F]/20"
+                placeholder="Example Insurance"
+              />
+            </label>
+
+            <label className="block">
+              <span className="mb-2 block text-sm font-medium text-slate-700">Expiry Date</span>
+              <input
+                type="date"
+                name="expiry_date"
+                className="h-14 w-full rounded-2xl border border-[#F4D06F]/30 bg-white px-4 text-slate-900 outline-none transition focus:border-[#D4AF37] focus:ring-4 focus:ring-[#F4D06F]/20"
+              />
+            </label>
+
+            <label className="block">
+              <span className="mb-2 block text-sm font-medium text-slate-700">Remarks</span>
+              <textarea
+                name="remarks"
+                rows={4}
+                className="w-full rounded-2xl border border-[#F4D06F]/30 bg-white px-4 py-3 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-[#D4AF37] focus:ring-4 focus:ring-[#F4D06F]/20"
+                placeholder="Add any extra details"
+              />
+            </label>
 
             <div className="flex flex-col gap-3">
               <button
@@ -221,13 +185,5 @@ function QuoteRequestForm() {
         </section>
       </div>
     </main>
-  );
-}
-
-export default function QuoteRequestPage() {
-  return (
-    <Suspense fallback={<main className="min-h-screen bg-[#0057D9] px-6 py-10 sm:px-10" />}>
-      <QuoteRequestForm />
-    </Suspense>
   );
 }
