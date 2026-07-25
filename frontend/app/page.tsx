@@ -117,8 +117,8 @@ export default function Home() {
       <section className="mx-auto max-w-7xl px-5 py-16 sm:px-8">
         <div className="mb-9 max-w-3xl">
           <p className={sectionLabelClass}>Core services</p>
-          <h2 className="mt-3 text-3xl font-black tracking-tight text-white sm:text-4xl">The 3 pillars of 91 Insurance Services</h2>
-          <p className="mt-4 text-base leading-7 text-white/80">A focused business flow: select the service, fill the form, send the enquiry to WhatsApp, and get follow-up directly.</p>
+          <h2 className="mt-3 text-3xl font-black tracking-tight text-white sm:text-4xl">Why Choose 91 Insurance Services?</h2>
+          <p className="mt-4 text-base leading-7 text-white/80">Enjoy a simple and hassle-free experience—select your service, fill out the form, send your enquiry via WhatsApp, and receive prompt follow-up from our team.</p>
         </div>
         <div className="grid gap-5 lg:grid-cols-3">
           {[
