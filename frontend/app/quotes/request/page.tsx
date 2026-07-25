@@ -150,6 +150,19 @@ function QuoteRequestForm() {
             </label>
 
             <label className="block">
+              <span className="mb-2 block text-sm font-medium text-slate-700">Vehicle ID</span>
+              <input
+                type="text"
+                {...register('vehicle_id')}
+                inputMode="numeric"
+                className="h-14 w-full rounded-2xl border border-[#F4D06F]/30 bg-white px-4 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-[#D4AF37] focus:ring-4 focus:ring-[#F4D06F]/20"
+                placeholder="123"
+              />
+              <p className="mt-2 text-xs text-slate-500">Enter the vehicle ID from your dashboard or vehicle record.</p>
+              {errors.vehicle_id && <p className="mt-2 text-sm text-red-600">{errors.vehicle_id.message}</p>}
+            </label>
+
+            <label className="block">
               <span className="mb-2 block text-sm font-medium text-slate-700">Name</span>
               <input
                 type="text"
@@ -182,8 +195,6 @@ function QuoteRequestForm() {
                 placeholder="TN-11-XX-XXXX"
               />
             </label>
-
-            <input type="hidden" {...register('vehicle_id')} />
 
             {statusMessage ? (
               <div className="rounded-3xl border border-[#F4D06F]/20 bg-[#F4D06F]/10 px-4 py-4 text-sm text-slate-900">
